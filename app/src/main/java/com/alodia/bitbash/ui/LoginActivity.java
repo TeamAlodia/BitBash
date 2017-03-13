@@ -1,7 +1,9 @@
-package com.alodia.bitbash;
+package com.alodia.bitbash.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.alodia.bitbash.R;
 
 public class LoginActivity extends AppCompatActivity {
 
