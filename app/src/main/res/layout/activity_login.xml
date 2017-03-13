@@ -10,8 +10,54 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.alodia.bitbash.ui.LoginActivity">
 
-    <TextView
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="45dp"
+        android:id="@+id/editText_Email"
+        android:hint="email" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:layout_below="@+id/editText_Email"
+        android:layout_alignLeft="@+id/editText_Email"
+        android:layout_alignStart="@+id/editText_Email"
+        android:id="@+id/editText_Password"
+        android:hint="password" />
+
+    <Button
+        android:text="Sign In"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText_Password"
+        android:id="@+id/button_SignIn"
+        android:layout_alignLeft="@+id/editText_Password"
+        android:layout_alignStart="@+id/editText_Password"
+        android:layout_alignRight="@+id/editText_Password"
+        android:layout_alignEnd="@+id/editText_Password" />
+
+    <TextView
+        android:text="or tap here to create an account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/button_SignIn"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/textView_CreateAccount" />
+
+    <TextView
+        android:text="forgot your password?"
+        android:layout_marginTop="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView_CreateAccount"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/textView_ForgotPassword" />
 </RelativeLayout>
