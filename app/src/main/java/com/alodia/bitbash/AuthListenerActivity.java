@@ -1,11 +1,14 @@
 package com.alodia.bitbash;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.alodia.bitbash.ui.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -14,14 +17,16 @@ import com.google.firebase.auth.FirebaseUser;
  */
 
 public class AuthListenerActivity extends AppCompatActivity{
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
+    public FirebaseAuth mAuth;
+    public FirebaseAuth.AuthStateListener mAuthListener;
+    public Context mContext;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mAuth = FirebaseAuth.getInstance();
+        mContext = this;
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -29,7 +34,13 @@ public class AuthListenerActivity extends AppCompatActivity{
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
+                    if(mContext.getClass().getSimpleName().equals("LoginActivity")){
+                        startActivity(new Intent(mContext, LoginActivity.class));
+                    }
                 } else {
+                    if(!mContext.getClass().getSimpleName().equals("LoginActivity")){
+                        startActivity(new Intent(mContext, LoginActivity.class));
+                    }
                     // User is signed out
                 }
                 // ...
