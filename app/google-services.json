@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "984708848477",
+    "firebase_url": "https://bitbash-c3266.firebaseio.com",
+    "project_id": "bitbash-c3266",
+    "storage_bucket": "bitbash-c3266.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:984708848477:android:b2317b58633080c7",
+        "android_client_info": {
+          "package_name": "com.alodia.bitbash"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "984708848477-fj3kdj8faea2fmt97512sbc8q4j9bd39.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.alodia.bitbash",
+            "certificate_hash": "36ca774b6213e9c02c9d35b834f8332153a519d9"
+          }
+        },
+        {
+          "client_id": "984708848477-sbv4kjct19191e70npn5150gnjl1mc9o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGTp9VZ56TPPMD6r3EZg9IZKIk2USlJog"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "984708848477-sbv4kjct19191e70npn5150gnjl1mc9o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
