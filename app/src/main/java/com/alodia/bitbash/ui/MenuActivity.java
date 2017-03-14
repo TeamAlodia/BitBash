@@ -1,5 +1,7 @@
 package com.alodia.bitbash.ui;
 
+import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,9 +16,9 @@ import butterknife.ButterKnife;
 
 public class MenuActivity extends AuthListenerActivity implements View.OnClickListener{
     @BindView(R.id.button__Logout) Button mButton_Logout;
-    @BindView(R.id.newBashText) TextView mButton_NewBash;
-    @BindView(R.id.loadBashText) TextView mButton_LoadBash;
-    @BindView(R.id.optionsText) TextView mButton_Settings;
+    @BindView(R.id.textView_NewBash) TextView mTextView_NewBash;
+    @BindView(R.id.textView_LoadBash) TextView mTextView_LoadBash;
+    @BindView(R.id.textView_Options) TextView mTextView_Options;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,27 +26,25 @@ public class MenuActivity extends AuthListenerActivity implements View.OnClickLi
         setContentView(R.layout.activity_menu);
         ButterKnife.bind(this);
 
-        mButton_Logout.setOnClickListener(this);
-        mButton_NewBash.setOnClickListener(this);
-        mButton_LoadBash.setOnClickListener(this);
-        mButton_Settings.setOnClickListener(this);
+        setFonts();
+        setClickListeners();
     }
 
     @Override
     public void onClick(View view) {
         if(view == mButton_Logout){
             logout();
-        } else if(view == mButton_NewBash) {
+        } else if(view == mTextView_NewBash) {
             newBash();
-        } else if(view == mButton_LoadBash) {
+        } else if(view == mTextView_LoadBash) {
             loadBash();
-        } else if(view == mButton_Settings) {
+        } else if(view == mTextView_Options) {
             settings();
         }
     }
 
     private void newBash() {
-
+        startActivity(new Intent(MenuActivity.this, CreateBashActivity.class));
     }
 
     private void loadBash() {
@@ -52,6 +52,20 @@ public class MenuActivity extends AuthListenerActivity implements View.OnClickLi
     }
 
     private void settings() {
+    }
 
+    private void setFonts(){
+        Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/PressStart2P-Regular.ttf");
+
+        mTextView_NewBash.setTypeface(tf);
+        mTextView_LoadBash.setTypeface(tf);
+        mTextView_Options.setTypeface(tf);
+    }
+
+    private void setClickListeners(){
+        mButton_Logout.setOnClickListener(this);
+        mTextView_NewBash.setOnClickListener(this);
+        mTextView_LoadBash.setOnClickListener(this);
+        mTextView_Options.setOnClickListener(this);
     }
 }

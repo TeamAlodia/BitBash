@@ -29,29 +29,28 @@
         android:text="New Bash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/titleText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="139dp"
-        android:textSize="20sp"
-        android:id="@+id/newBashText" />
+        android:id="@+id/textView_NewBash"
+        android:textSize="24dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:text="Load Bash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/newBashText"
+        android:layout_below="@+id/textView_NewBash"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
-        android:textSize="20sp"
-        android:id="@+id/loadBashText" />
+        android:layout_marginTop="16dp"
+        android:textSize="24dp"
+        android:id="@+id/textView_LoadBash" />
 
     <TextView
         android:text="Options"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/loadBashText"
-        android:layout_marginTop="39dp"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/textView_LoadBash"
         android:layout_centerHorizontal="true"
-        android:textSize="20sp"
-        android:id="@+id/optionsText" />
+        android:textSize="24dp"
+        android:id="@+id/textView_Options" />
 </RelativeLayout>
