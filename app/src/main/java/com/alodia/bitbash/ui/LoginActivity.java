@@ -39,20 +39,15 @@ public class LoginActivity extends AuthListenerActivity implements View.OnClickL
     public void onClick(View view) {
         String email = mEditText_Email.getText().toString();
         String password = mEditText_Password.getText().toString();
-        Log.d("In", "onClick");
-
 
         if(view == mButton_SignIn){
             signIn(email, password);
         }else if(view == mTextView_CreateAccount){
             createAccount(email, password);
-            Log.d("IN", "!!");
         }
     }
 
     public void createAccount(String email, String password){
-        Log.d("Email:", email);
-        Log.d("Password", password);
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
