@@ -9,24 +9,20 @@ import java.util.HashMap;
 public class Player {
     public String name;
     public String initials;
-    public String height;
-    public String weight;
-    public String dateOfBirth;
-    public String bloodType;
-    public String bio;
+    public String height = "???";
+    public String weight = "???";
+    public String dateOfBirth = "???";
+    public String bloodType = "???";
+    public String origin = "???";
+    public String bio = "A mysterious challenger.";
     public String pushId;
     public HashMap<String, Boolean> records = new HashMap<>();
     public HashMap<String, Boolean> friends = new HashMap<>();
     public HashMap<String, Boolean> competitions = new HashMap<>();
 
-    public Player(String name, String initials, String height, String weight, String dateOfBirth, String bloodType, String bio) {
+    public Player(String name, String initials) {
         this.name = name;
         this.initials = initials;
-        this.height = height;
-        this.weight = weight;
-        this.dateOfBirth = dateOfBirth;
-        this.bloodType = bloodType;
-        this.bio = bio;
     }
 
     public String getName() {
@@ -115,5 +111,13 @@ public class Player {
 
     public void setCompetitions(HashMap<String, Boolean> competitions) {
         this.competitions = competitions;
+    }
+
+    public String getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(String origin) {
+        this.origin = origin;
     }
 }
