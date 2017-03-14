@@ -7,8 +7,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
 
 import com.alodia.bitbash.ui.LoginActivity;
+import com.alodia.bitbash.ui.MenuActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -35,7 +37,7 @@ public class AuthListenerActivity extends AppCompatActivity{
                 if (user != null) {
                     // User is signed in
                     if(mContext.getClass().getSimpleName().equals("LoginActivity")){
-                        startActivity(new Intent(mContext, LoginActivity.class));
+                        startActivity(new Intent(mContext, MenuActivity.class));
                     }
                 } else {
                     if(!mContext.getClass().getSimpleName().equals("LoginActivity")){
@@ -60,5 +62,9 @@ public class AuthListenerActivity extends AppCompatActivity{
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
+    }
+
+    public void logout(){
+        mAuth.signOut();
     }
 }
