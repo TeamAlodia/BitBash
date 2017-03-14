@@ -4,7 +4,7 @@
     android:id="@+id/activity_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.alodia.bitbash.ui.LoginActivity">
+    tools:context="com.alodia.bitbash.ui.activities.LoginActivity">
 
     <EditText
         android:layout_width="wrap_content"
