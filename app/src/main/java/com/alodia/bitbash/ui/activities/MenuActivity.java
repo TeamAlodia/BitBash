@@ -27,21 +27,30 @@ public class MenuActivity extends AuthListenerActivity implements View.OnClickLi
 
         setFonts();
         setClickListeners();
-
-        mButton_Logout.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         if(view == mButton_Logout){
             logout();
-        }else if(view == mTextView_NewBash){
-            startActivity(new Intent(MenuActivity.this, CreateBashActivity.class));
-        }else if(view == mTextView_LoadBash){
-
-        }else if(view == mTextView_Options){
-
+        } else if(view == mTextView_NewBash) {
+            newBash();
+        } else if(view == mTextView_LoadBash) {
+            loadBash();
+        } else if(view == mTextView_Options) {
+            settings();
         }
+    }
+
+    private void newBash() {
+        startActivity(new Intent(MenuActivity.this, CreateBashActivity.class));
+    }
+
+    private void loadBash() {
+
+    }
+
+    private void settings() {
     }
 
     private void setFonts(){
@@ -53,6 +62,7 @@ public class MenuActivity extends AuthListenerActivity implements View.OnClickLi
     }
 
     private void setClickListeners(){
+        mButton_Logout.setOnClickListener(this);
         mTextView_NewBash.setOnClickListener(this);
         mTextView_LoadBash.setOnClickListener(this);
         mTextView_Options.setOnClickListener(this);
