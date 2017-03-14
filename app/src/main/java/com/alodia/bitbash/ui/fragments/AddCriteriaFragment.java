@@ -8,14 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.alodia.bitbash.R;
+import com.alodia.bitbash.ui.activities.CreateBashActivity;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AddGamesFragment extends Fragment {
+public class AddCriteriaFragment extends Fragment {
+    public CreateBashActivity parent;
 
-
-    public AddGamesFragment() {
+    public AddCriteriaFragment() {
         // Required empty public constructor
     }
 
@@ -23,6 +24,8 @@ public class AddGamesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        parent = (CreateBashActivity) getActivity();
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_add_games, container, false);
     }
