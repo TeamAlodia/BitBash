@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.alodia.bitbash.AuthListenerActivity;
 import com.alodia.bitbash.R;
 import com.alodia.bitbash.adapters.UniversalPagerAdapter;
+import com.alodia.bitbash.models.HighScoreTable;
 import com.alodia.bitbash.services.GamesDbService;
 import com.alodia.bitbash.ui.fragments.AddDetailsAndInviteFragment;
 import com.alodia.bitbash.ui.fragments.AddCriteriaFragment;
@@ -35,6 +36,8 @@ public class CreateBashActivity extends AuthListenerActivity {
     @BindView(R.id.pager) ViewPager mPager;
     @BindView(R.id.tabs) PagerSlidingTabStrip mTabs;
 
+    public ArrayList<HighScoreTable> mHighScoreTables = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +61,14 @@ public class CreateBashActivity extends AuthListenerActivity {
         Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/PressStart2P-Regular.ttf");
         mTabs.setTypeface(tf, Typeface.NORMAL);
         mTabs.setViewPager(mPager);
+    }
+
+    public void addGame(String gameId){
+        HighScoreTable highScoreTable = new HighScoreTable();
+        highScoreTable.setGameId(gameId);
+        mHighScoreTables.add(highScoreTable);
+        Log.d("Added:", gameId);
+        Log.d("Number of tables", String.valueOf(mHighScoreTables.size()));
     }
 
 }

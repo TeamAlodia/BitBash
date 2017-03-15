@@ -54,4 +54,22 @@ public class GamesDbService {
         Call call = client.newCall(request);
         call.enqueue(callback);
     }
+
+    public void findGameById(String query, final Callback callback){
+        final OkHttpClient client = new OkHttpClient.Builder()
+                .build();
+
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.URL_GETGAMEBYID).newBuilder();
+        urlBuilder.addEncodedQueryParameter("id", query);
+        String url = urlBuilder.build().toString();
+
+        Log.d("URL:", url);
+
+        final Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        Call call = client.newCall(request);
+        call.enqueue(callback);
+    }
 }

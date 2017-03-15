@@ -1,11 +1,14 @@
 package com.alodia.bitbash.ui.fragments;
 
 
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,6 +75,7 @@ public class AddGamesFragment extends Fragment implements View.OnClickListener{
         setUpSpinner();
         getPlatforms();
         setUpRecyclerView();
+        setRecyclerViewItemTouchListener();
 
         // Inflate the layout for this fragment
         return view;
@@ -111,8 +115,27 @@ public class AddGamesFragment extends Fragment implements View.OnClickListener{
         });
     }
 
+    public void setRecyclerViewItemTouchListener(){
+        ItemTouchHelper.SimpleCallback itemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder viewHolder1) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                if(swipeDir == 8){
+                    mGameletAdapter.notifyDataSetChanged();
+                }
+            }
+        };
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(mRecyclerView_Gamelets);
+    }
+
     public void setUpRecyclerView(){
-        mGameletAdapter = new GameletListAdapter(mGamelets);
+        mGameletAdapter = new GameletListAdapter(mGamelets, parent);
         mRecyclerView_Gamelets.setHasFixedSize(true);
         mRecyclerView_Gamelets.setAdapter(mGameletAdapter);
         mRecyclerView_Gamelets.setLayoutManager(new LinearLayoutManager(this.getContext()));

@@ -13,10 +13,11 @@ public class Game {
     public int numberOfPlayers = 1;
     public String publisher = "???";
     public String developer = "???";
-    public ArrayList<String> screenshots = new ArrayList<>();
     public String hasCoop = "???";
     public String overview = "No description available.";
     public String boxArt;
+
+    public Game(){}
 
     public Game(String name, String gameId) {
         this.name = name;
@@ -69,14 +70,6 @@ public class Game {
 
     public void setDeveloper(String developer) {
         this.developer = developer;
-    }
-
-    public ArrayList<String> getScreenshots() {
-        return screenshots;
-    }
-
-    public void setScreenshots(ArrayList<String> screenshots) {
-        this.screenshots = screenshots;
     }
 
     public String getHasCoop() {

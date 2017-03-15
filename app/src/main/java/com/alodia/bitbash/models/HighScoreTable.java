@@ -13,6 +13,8 @@ public class HighScoreTable {
     public boolean locked = false;
     public HashMap<String, Boolean> records = new HashMap<>();
 
+    public HighScoreTable(){}
+
     public HighScoreTable(String gameName, String gameId, String type) {
         this.gameName = gameName;
         this.gameId = gameId;

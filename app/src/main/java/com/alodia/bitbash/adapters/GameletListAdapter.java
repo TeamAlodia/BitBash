@@ -1,14 +1,19 @@
 package com.alodia.bitbash.adapters;
 
+import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alodia.bitbash.R;
 import com.alodia.bitbash.models.Gamelet;
+import com.alodia.bitbash.ui.activities.CreateBashActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +27,11 @@ import butterknife.ButterKnife;
 
 public class GameletListAdapter extends RecyclerView.Adapter<GameletListAdapter.GameletViewHolder> {
     List<Gamelet> mGamelets = new ArrayList<>();
+    CreateBashActivity mParent;
 
-    public GameletListAdapter(List<Gamelet> gamelets){
+    public GameletListAdapter(List<Gamelet> gamelets, CreateBashActivity parent){
         mGamelets = gamelets;
-        Log.d("In Constructor", String.valueOf(mGamelets.size()));
+        mParent = parent;
     }
 
     @Override
@@ -45,16 +51,31 @@ public class GameletListAdapter extends RecyclerView.Adapter<GameletListAdapter.
         return mGamelets.size();
     }
 
-    public class GameletViewHolder extends RecyclerView.ViewHolder{
+    public class GameletViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         @BindView(R.id.textView_Name) TextView mTextView_Name;
+        @BindView(R.id.imageView_AddGame) ImageView mImageView_AddGame;
 
         public GameletViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+//            itemView.setOnClickListener(this);
+            mImageView_AddGame.setOnClickListener(this);
+
         }
 
         public void bindGamelet(Gamelet gamelet){
+            Typeface tf = Typeface.createFromAsset(mParent.getAssets(), "fonts/PressStart2P-Regular.ttf");
+            mTextView_Name.setTypeface(tf);
             mTextView_Name.setText(gamelet.getName());
+        }
+
+        @Override
+        public void onClick(View view) {
+            if(view == mImageView_AddGame){
+                Gamelet gamelet = mGamelets.get(getAdapterPosition());
+                mParent.addGame(gamelet.getGameId());
+                Toast.makeText(mParent,  gamelet.getName() + " added", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }
