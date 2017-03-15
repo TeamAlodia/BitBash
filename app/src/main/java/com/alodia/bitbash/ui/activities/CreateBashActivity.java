@@ -12,8 +12,8 @@ import com.alodia.bitbash.R;
 import com.alodia.bitbash.adapters.UniversalPagerAdapter;
 import com.alodia.bitbash.services.GamesDbService;
 import com.alodia.bitbash.ui.fragments.AddDetailsAndInviteFragment;
-import com.alodia.bitbash.ui.fragments.AddGameDetailsFragment;
 import com.alodia.bitbash.ui.fragments.AddCriteriaFragment;
+import com.alodia.bitbash.ui.fragments.AddGamesFragment;
 import com.astuetz.PagerSlidingTabStrip;
 
 import org.json.JSONArray;
@@ -35,8 +35,6 @@ public class CreateBashActivity extends AuthListenerActivity {
     @BindView(R.id.pager) ViewPager mPager;
     @BindView(R.id.tabs) PagerSlidingTabStrip mTabs;
 
-    public ArrayList<String> mPlatforms = new ArrayList<>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,14 +43,12 @@ public class CreateBashActivity extends AuthListenerActivity {
 
         setUpPagerAdaper();
         setUpTabs();
-
-        getPlatforms();
     }
 
     public void setUpPagerAdaper(){
         ArrayList<String> tabTitles= new ArrayList<>(Arrays.asList("Setup Bash", "Add Games", "Set Rules"));
         int pageCount = 3;
-        ArrayList<Fragment> fragments = new ArrayList<>(Arrays.asList(new AddDetailsAndInviteFragment(), new AddCriteriaFragment(), new AddGameDetailsFragment()));
+        ArrayList<Fragment> fragments = new ArrayList<>(Arrays.asList(new AddDetailsAndInviteFragment(), new AddGamesFragment(), new AddCriteriaFragment()));
 
         UniversalPagerAdapter adapter = new UniversalPagerAdapter(getSupportFragmentManager(), pageCount, tabTitles, fragments);
         mPager.setAdapter(adapter);
@@ -64,30 +60,4 @@ public class CreateBashActivity extends AuthListenerActivity {
         mTabs.setViewPager(mPager);
     }
 
-    public void getPlatforms(){
-        GamesDbService apiService = new GamesDbService();
-        apiService.findAllPlatforms(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Toast.makeText(mContext, "GamesDB is curently down", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                JSONObject jsonObj = null;
-                try {
-                    jsonObj = XML.toJSONObject(response.body().string());
-                    Log.d("Object:", jsonObj.toString());
-                    JSONArray rawPlatforms = jsonObj.getJSONObject("Data").getJSONObject("Platforms").getJSONArray("Platform");
-                    for(int i = 0; i < rawPlatforms.length(); i++){
-                        String name = rawPlatforms.getJSONObject(i).getString("name");
-                        mPlatforms.add(name);
-                    }
-                } catch (JSONException e) {
-                    Log.e("JSON exception", e.getMessage());
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
 }

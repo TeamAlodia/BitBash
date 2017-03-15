@@ -2,12 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.alodia.bitbash.ui.fragments.AddCriteriaFragment">
+    tools:context="com.alodia.bitbash.ui.fragments.AddGamesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <Spinner
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Add Games" />
-
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorAccent"
+        android:id="@+id/spinner" />
 </FrameLayout>
