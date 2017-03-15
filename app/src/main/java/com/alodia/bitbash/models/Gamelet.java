@@ -9,9 +9,10 @@ public class Gamelet {
     public String system;
     public String gameId;
 
-    public Gamelet(String name, String system, String gameId) {
+    public Gamelet(){}
+
+    public Gamelet(String name, String gameId) {
         this.name = name;
-        this.system = system;
         this.gameId = gameId;
     }
 
