@@ -5,15 +5,11 @@ import android.util.Log;
 import com.alodia.bitbash.Constants;
 import com.alodia.bitbash.models.Gamelet;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
 
 /**
  * Created by Alaina Traxler on 3/14/2017.

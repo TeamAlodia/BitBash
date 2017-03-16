@@ -1,11 +1,8 @@
 package com.alodia.bitbash.ui.fragments;
 
 
-import android.content.DialogInterface;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -30,13 +27,10 @@ import org.json.JSONObject;
 import org.json.XML;
 
 import java.io.IOException;
-import java.text.Collator;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,7 +45,7 @@ public class AddGamesFragment extends Fragment implements View.OnClickListener{
     @BindView(R.id.spinner) Spinner mSpinner;
     @BindView(R.id.recyclerView_Games) RecyclerView mRecyclerView_Gamelets;
 
-    public ArrayAdapter<String> mAdapter;
+    public ArrayAdapter<String> mSpinnerAdapter;
     public CreateBashActivity parent;
     public ArrayList<String> mPlatforms = new ArrayList<>();
     public ArrayList<String> mPlatformIds = new ArrayList<>();
@@ -87,8 +81,8 @@ public class AddGamesFragment extends Fragment implements View.OnClickListener{
     }
 
     public void setUpSpinner(){
-        mAdapter = new ArrayAdapter<String>(parent, android.R.layout.simple_spinner_item, mPlatforms);
-        mSpinner.setAdapter(mAdapter);
+        mSpinnerAdapter = new ArrayAdapter<String>(parent, android.R.layout.simple_spinner_item, mPlatforms);
+        mSpinner.setAdapter(mSpinnerAdapter);
         mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -167,7 +161,7 @@ public class AddGamesFragment extends Fragment implements View.OnClickListener{
                     parent.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            mAdapter.notifyDataSetChanged();
+                            mSpinnerAdapter.notifyDataSetChanged();
                             mSpinner.setSelection(mPlatformIds.indexOf("7"));
                         }
                     });

@@ -8,4 +8,7 @@ public class Constants {
     public static final String URL_GETPLATFORMS = "http://thegamesdb.net/api/GetPlatformsList.php";
     public static final String URL_GETGAMESBYPLATFORM = "http://thegamesdb.net/api/GetPlatformGames.php?";
     public static final String URL_GETGAMEBYID = "http://thegamesdb.net/api/GetGame.php?";
+
+    public static final String TYPE_SCOREATTACK = "scoreAttack";
+    public static final String TYPE_TIMETRIAL = "timeTrial";
 }

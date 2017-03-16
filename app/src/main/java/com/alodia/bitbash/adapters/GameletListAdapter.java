@@ -1,9 +1,7 @@
 package com.alodia.bitbash.adapters;
 
-import android.content.Context;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,7 +71,7 @@ public class GameletListAdapter extends RecyclerView.Adapter<GameletListAdapter.
         public void onClick(View view) {
             if(view == mImageView_AddGame){
                 Gamelet gamelet = mGamelets.get(getAdapterPosition());
-                mParent.addGame(gamelet.getGameId());
+                mParent.addGame(gamelet.getGameId(), gamelet.getName());
                 Toast.makeText(mParent,  gamelet.getName() + " added", Toast.LENGTH_SHORT).show();
             }
         }

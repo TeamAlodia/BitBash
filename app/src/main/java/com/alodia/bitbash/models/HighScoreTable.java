@@ -10,6 +10,7 @@ public class HighScoreTable {
     public String gameName;
     public String gameId;
     public String type;
+    public String description;
     public boolean locked = false;
     public HashMap<String, Boolean> records = new HashMap<>();
 
@@ -59,5 +60,13 @@ public class HighScoreTable {
 
     public void setRecords(HashMap<String, Boolean> records) {
         this.records = records;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

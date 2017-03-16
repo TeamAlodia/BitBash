@@ -40,12 +40,15 @@ public class CreateBashActivity extends AuthListenerActivity {
     private String mName;
     private String mDescription;
     private AddDetailsAndInviteFragment mAddDetailsAndInviteFragment = new AddDetailsAndInviteFragment();
+    private AddCriteriaFragment mAddCriteriaFragment = new AddCriteriaFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_bash);
         ButterKnife.bind(this);
+
+        mAddCriteriaFragment.pairHighScoreTables(mHighScoreTables);
 
         setUpPagerAdaper();
         setUpTabs();
@@ -54,7 +57,7 @@ public class CreateBashActivity extends AuthListenerActivity {
     public void setUpPagerAdaper(){
         ArrayList<String> tabTitles= new ArrayList<>(Arrays.asList("Setup Bash", "Add Games", "Set Rules"));
         int pageCount = 3;
-        ArrayList<Fragment> fragments = new ArrayList<>(Arrays.asList(mAddDetailsAndInviteFragment, new AddGamesFragment(), new AddCriteriaFragment()));
+        ArrayList<Fragment> fragments = new ArrayList<>(Arrays.asList(mAddDetailsAndInviteFragment, new AddGamesFragment(), mAddCriteriaFragment));
 
         UniversalPagerAdapter adapter = new UniversalPagerAdapter(getSupportFragmentManager(), pageCount, tabTitles, fragments);
         mPager.setAdapter(adapter);
@@ -66,12 +69,12 @@ public class CreateBashActivity extends AuthListenerActivity {
         mTabs.setViewPager(mPager);
     }
 
-    public void addGame(String gameId){
+    public void addGame(String gameId, String gameName){
         HighScoreTable highScoreTable = new HighScoreTable();
         highScoreTable.setGameId(gameId);
+        highScoreTable.setGameName(gameName);
         mHighScoreTables.add(highScoreTable);
-        Log.d("Added:", gameId);
-        Log.d("Number of tables", String.valueOf(mHighScoreTables.size()));
+        mAddCriteriaFragment.updateCriteriaAdapter();
     }
 
     public void setName(String name){
