@@ -10,10 +10,11 @@ public class Game {
     public String name = "???";
     public String gameId;
     public ArrayList<String> genres = new ArrayList<>();
-    public int numberOfPlayers = 1;
+    public String numberOfPlayers = "???";
     public String publisher = "???";
     public String developer = "???";
     public String hasCoop = "???";
+    public String releaseDate = "???";
     public String overview = "No description available.";
     public String boxArt;
 
@@ -48,11 +49,11 @@ public class Game {
         this.genres = genres;
     }
 
-    public int getNumberOfPlayers() {
+    public String getNumberOfPlayers() {
         return numberOfPlayers;
     }
 
-    public void setNumberOfPlayers(int numberOfPlayers) {
+    public void setNumberOfPlayers(String numberOfPlayers) {
         this.numberOfPlayers = numberOfPlayers;
     }
 
@@ -94,5 +95,13 @@ public class Game {
 
     public void setBoxArt(String boxArt) {
         this.boxArt = boxArt;
+    }
+
+    public String getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
     }
 }
