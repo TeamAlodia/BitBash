@@ -36,7 +36,10 @@ public class CreateBashActivity extends AuthListenerActivity {
     @BindView(R.id.pager) ViewPager mPager;
     @BindView(R.id.tabs) PagerSlidingTabStrip mTabs;
 
-    public ArrayList<HighScoreTable> mHighScoreTables = new ArrayList<>();
+    private ArrayList<HighScoreTable> mHighScoreTables = new ArrayList<>();
+    private String mName;
+    private String mDescription;
+    private AddDetailsAndInviteFragment mAddDetailsAndInviteFragment = new AddDetailsAndInviteFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +54,7 @@ public class CreateBashActivity extends AuthListenerActivity {
     public void setUpPagerAdaper(){
         ArrayList<String> tabTitles= new ArrayList<>(Arrays.asList("Setup Bash", "Add Games", "Set Rules"));
         int pageCount = 3;
-        ArrayList<Fragment> fragments = new ArrayList<>(Arrays.asList(new AddDetailsAndInviteFragment(), new AddGamesFragment(), new AddCriteriaFragment()));
+        ArrayList<Fragment> fragments = new ArrayList<>(Arrays.asList(mAddDetailsAndInviteFragment, new AddGamesFragment(), new AddCriteriaFragment()));
 
         UniversalPagerAdapter adapter = new UniversalPagerAdapter(getSupportFragmentManager(), pageCount, tabTitles, fragments);
         mPager.setAdapter(adapter);
@@ -71,4 +74,17 @@ public class CreateBashActivity extends AuthListenerActivity {
         Log.d("Number of tables", String.valueOf(mHighScoreTables.size()));
     }
 
+    public void setName(String name){
+        mName = name;
+        Log.d("Name:", name);
+    }
+
+    public void setDescription(String description){
+        mDescription = description;
+    }
+
+    public void getNameAndDescription(){
+        mName = mAddDetailsAndInviteFragment.getName();
+        mDescription = mAddDetailsAndInviteFragment.getDescription();
+    }
 }
