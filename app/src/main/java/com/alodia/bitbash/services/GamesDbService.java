@@ -2,19 +2,31 @@ package com.alodia.bitbash.services;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.util.Log;
+import android.view.Display;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.alodia.bitbash.Constants;
 import com.alodia.bitbash.R;
 import com.alodia.bitbash.models.Game;
 import com.alodia.bitbash.models.Gamelet;
 import com.alodia.bitbash.ui.activities.CreateBashActivity;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.XML;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +42,9 @@ import okhttp3.Response;
  */
 
 public class GamesDbService {
+    private Context mContext;
+    private Dialog mDialog;
+
     public void findAllPlatforms(final Callback callback) {
         final OkHttpClient client = new OkHttpClient.Builder()
                 .build();
@@ -84,7 +99,9 @@ public class GamesDbService {
     }
 
     public Game processResultById(Response response, String id, final Context context) {
-        Game game = new Game();
+        final Game game = new Game();
+        mContext = context;
+
         game.setGameId(id);
 
         JSONObject jsonObj = null;
@@ -162,7 +179,7 @@ public class GamesDbService {
                 ((CreateBashActivity) context).runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        executeDialog(context);
+                        executeDialog(game);
                     }
                 });
             }
@@ -177,9 +194,48 @@ public class GamesDbService {
         return game;
     }
 
-    public void executeDialog(Context context){
-        final Dialog dialog = new Dialog(context);
+    public void executeDialog(Game game){
+        final Dialog dialog = new Dialog(mContext);
         dialog.setContentView(R.layout.dialog_game);
+
+        ImageView imageView_BoxArt = (ImageView)dialog.findViewById(R.id.imageView_BoxArt);
+        TextView textView_Overview = (TextView)dialog.findViewById(R.id.textView_Overview);
+        TextView textView_Developer = (TextView)dialog.findViewById(R.id.textView_Developer);
+        TextView textView_DeveloperDetail = (TextView)dialog.findViewById(R.id.textView_DeveloperDetail);
+        TextView textView_PublisherDetail = (TextView)dialog.findViewById(R.id.textView_PublisherDetail);
+        TextView textView_Publisher = (TextView)dialog.findViewById(R.id.textView_Publisher);
+        TextView textView_NumberOfPlayers = (TextView)dialog.findViewById(R.id.textView_NumberOfPlayers);
+        TextView textView_NumberOfPlayersDetail = (TextView)dialog.findViewById(R.id.textView_NumberOfPlayersDetail);
+        TextView textView_HasCoop = (TextView)dialog.findViewById(R.id.textView_HasCoop);
+        TextView textView_HasCoopDetail = (TextView)dialog.findViewById(R.id.textView_HasCoopDetail);
+        TextView textView_ReleaseDate = (TextView)dialog.findViewById(R.id.textView_ReleaseDate);
+        TextView textView_ReleaseDateDetail = (TextView)dialog.findViewById(R.id.textView_ReleaseDateDetail);
+
+        Typeface PlayRegular = Typeface.createFromAsset(mContext.getAssets(), "fonts/Play-Regular.ttf");
+        Typeface PlayBold = Typeface.createFromAsset(mContext.getAssets(), "fonts/Play-Bold.ttf");
+
+        Picasso.with(mContext.getApplicationContext()).load(game.getBoxArt()).into(imageView_BoxArt);
+
+        textView_Overview.setTypeface(PlayRegular);
+        textView_DeveloperDetail.setTypeface(PlayRegular);
+        textView_PublisherDetail.setTypeface(PlayRegular);
+        textView_NumberOfPlayersDetail.setTypeface(PlayRegular);
+        textView_HasCoopDetail.setTypeface(PlayRegular);
+        textView_ReleaseDateDetail.setTypeface(PlayRegular);
+
+
+        textView_Publisher.setTypeface(PlayBold);
+        textView_Developer.setTypeface(PlayBold);
+        textView_NumberOfPlayers.setTypeface(PlayBold);
+        textView_HasCoop.setTypeface(PlayBold);
+        textView_ReleaseDate.setTypeface(PlayBold);
+
+        textView_Overview.setText(game.getOverview());
+        textView_PublisherDetail.setText(game.getPublisher());
+        textView_DeveloperDetail.setText(game.getDeveloper());
+        textView_NumberOfPlayersDetail.setText(game.getNumberOfPlayers());
+        textView_HasCoopDetail.setText(game.getHasCoop());
+        textView_ReleaseDateDetail.setText(game.getReleaseDate());
 
         dialog.show();
     }
