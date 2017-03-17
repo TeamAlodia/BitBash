@@ -6,17 +6,13 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import com.alodia.bitbash.R;
 import com.alodia.bitbash.adapters.CriteriaListAdapter;
-import com.alodia.bitbash.adapters.GameletListAdapter;
-import com.alodia.bitbash.models.Gamelet;
 import com.alodia.bitbash.models.HighScoreTable;
 import com.alodia.bitbash.ui.activities.CreateBashActivity;
 
@@ -58,8 +54,31 @@ public class AddCriteriaFragment extends Fragment implements View.OnClickListene
     @Override
     public void onClick(View view) {
         if(view == mFAB_Done){
-            parent.getNameAndDescription();
+            parent.getNameAndDescriptionFromFragment();
+            if(validateBash()){
+                parent.createBash();
+            }
         }
+    }
+
+    public boolean validateBash(){
+        boolean isValid = true;
+
+        String name = parent.getName();
+        String description = parent.getDescription();
+
+        if(name == null || name.length() == 0){
+            isValid = false;
+            Toast.makeText(parent, "Please enter a name for your bash", Toast.LENGTH_SHORT).show();
+        }else if(description == null || description.length() == 0){
+            isValid = false;
+            Toast.makeText(parent, "Please enter a description for your bash", Toast.LENGTH_SHORT).show();
+        }else if(mHighScoreTables.size() == 0){
+            isValid = false;
+            Toast.makeText(parent, "Please select one or more games", Toast.LENGTH_SHORT).show();
+        }
+
+        return isValid;
     }
 
     public void setUpRecyclerView(){

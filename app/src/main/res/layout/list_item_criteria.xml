@@ -35,5 +35,6 @@
         android:ems="10"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/editText_CriteriaDescription" />
+        android:id="@+id/editText_CriteriaDescription"
+        android:hint="what are the rules?" />
 </RelativeLayout>

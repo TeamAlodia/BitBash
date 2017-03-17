@@ -77,17 +77,21 @@ public class CreateBashActivity extends AuthListenerActivity {
         mAddCriteriaFragment.updateCriteriaAdapter();
     }
 
-    public void setName(String name){
-        mName = name;
-        Log.d("Name:", name);
-    }
-
-    public void setDescription(String description){
-        mDescription = description;
-    }
-
-    public void getNameAndDescription(){
+    public void getNameAndDescriptionFromFragment(){
         mName = mAddDetailsAndInviteFragment.getName();
         mDescription = mAddDetailsAndInviteFragment.getDescription();
+    }
+
+    public String getName(){
+        return mName;
+    }
+
+    public String getDescription(){
+        return mDescription;
+    }
+
+    public void createBash(){
+        //TODO: Actually write this to firebase and catch the exception if it fails so that e don't trigger false toasts.
+        Toast.makeText(mContext, "Bash created!", Toast.LENGTH_SHORT).show();
     }
 }
