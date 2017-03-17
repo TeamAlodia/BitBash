@@ -1,6 +1,7 @@
 package com.alodia.bitbash.ui.activities;
 
 import android.graphics.Typeface;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
@@ -8,14 +9,18 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.alodia.bitbash.AuthListenerActivity;
+import com.alodia.bitbash.Constants;
 import com.alodia.bitbash.R;
 import com.alodia.bitbash.adapters.UniversalPagerAdapter;
+import com.alodia.bitbash.models.Bash;
 import com.alodia.bitbash.models.HighScoreTable;
 import com.alodia.bitbash.services.GamesDbService;
 import com.alodia.bitbash.ui.fragments.AddDetailsAndInviteFragment;
 import com.alodia.bitbash.ui.fragments.AddCriteriaFragment;
 import com.alodia.bitbash.ui.fragments.AddGamesFragment;
 import com.astuetz.PagerSlidingTabStrip;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,6 +30,7 @@ import org.json.XML;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -91,7 +97,28 @@ public class CreateBashActivity extends AuthListenerActivity {
     }
 
     public void createBash(){
-        //TODO: Actually write this to firebase and catch the exception if it fails so that e don't trigger false toasts.
+        //TODO: Catch the exception if it fails so that e don't trigger false toasts.
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+        String currentUserId = mAuth.getCurrentUser().getUid();
+
+        //Set up initial season with high score tables
+        ArrayList<ArrayList<HighScoreTable>> seasons = new ArrayList<>();
+        seasons.add(mHighScoreTables);
+
+        //Set up players
+        //TODO: Harvest additional players
+        HashMap<String, Boolean> players = new HashMap<>();
+        players.put(currentUserId, true);
+
+        Bash bash = new Bash(mName, mDescription, currentUserId, players, seasons);
+
+        DatabaseReference pushRef = dbRef.child(Constants.DB_BASHES).push();
+        String bashPushId = pushRef.getKey();
+        bash.setPushId(bashPushId);
+        pushRef.setValue(bash);
+        dbRef.child(Constants.DB_PLAYERS).child(currentUserId).child(Constants.DB_BASHES).child(bashPushId).setValue(bash);
+
+        //TODO: redirect to bash details page
         Toast.makeText(mContext, "Bash created!", Toast.LENGTH_SHORT).show();
     }
 }

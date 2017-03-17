@@ -36,6 +36,8 @@ public class AddDetailsAndInviteFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         parent = (CreateBashActivity) getActivity();
+
+        //TODO: May need to use a text watcher for constant updates if other phones do not play nice with fragments.
         // Inflate the layout for this fragment
         return view;
     }

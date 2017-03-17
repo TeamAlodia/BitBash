@@ -113,6 +113,11 @@ public class CriteriaListAdapter extends RecyclerView.Adapter<CriteriaListAdapte
             Typeface tf = Typeface.createFromAsset(mParent.getAssets(), "fonts/PressStart2P-Regular.ttf");
             mTextView_Name.setTypeface(tf);
             mTextView_Name.setText(highScoreTable.getGameName());
+
+            String criteriaDescription = highScoreTable.getDescription();
+            if(criteriaDescription != null && criteriaDescription.length() != 0){
+                mEditTextCriteriaDescription.setText(highScoreTable.getDescription());
+            }
         }
 
         @Override

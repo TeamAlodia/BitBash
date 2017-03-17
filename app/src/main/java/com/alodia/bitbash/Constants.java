@@ -11,4 +11,7 @@ public class Constants {
 
     public static final String TYPE_SCOREATTACK = "scoreAttack";
     public static final String TYPE_TIMETRIAL = "timeTrial";
+
+    public static final String DB_BASHES = "bashes";
+    public static final String DB_PLAYERS = "players";
 }

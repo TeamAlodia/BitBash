@@ -17,11 +17,12 @@ public class Bash {
     public HashMap<String, Boolean> players;
     public ArrayList<ArrayList<HighScoreTable>> seasons = new ArrayList<>();
 
-    public Bash(String name, String description, String createdBy, String pushId, HashMap<String, Boolean> players, ArrayList<ArrayList<HighScoreTable>> seasons) {
+
+
+    public Bash(String name, String description, String createdBy, HashMap<String, Boolean> players, ArrayList<ArrayList<HighScoreTable>> seasons) {
         this.name = name;
         this.description = description;
         this.createdBy = createdBy;
-        this.pushId = pushId;
         this.players = players;
         this.seasons = seasons;
     }

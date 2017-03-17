@@ -18,7 +18,7 @@ public class Player {
     public String pushId;
     public HashMap<String, Boolean> records = new HashMap<>();
     public HashMap<String, Boolean> friends = new HashMap<>();
-    public HashMap<String, Boolean> competitions = new HashMap<>();
+    public HashMap<String, Boolean> bashes = new HashMap<>();
 
     public Player(String name, String initials) {
         this.name = name;
@@ -105,12 +105,12 @@ public class Player {
         this.friends = friends;
     }
 
-    public HashMap<String, Boolean> getCompetitions() {
-        return competitions;
+    public HashMap<String, Boolean> getBashes() {
+        return bashes;
     }
 
-    public void setCompetitions(HashMap<String, Boolean> competitions) {
-        this.competitions = competitions;
+    public void setBashes(HashMap<String, Boolean> bashes) {
+        this.bashes = bashes;
     }
 
     public String getOrigin() {
