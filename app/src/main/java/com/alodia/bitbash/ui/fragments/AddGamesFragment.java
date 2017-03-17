@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -44,6 +45,7 @@ import okhttp3.Response;
 public class AddGamesFragment extends Fragment implements View.OnClickListener{
     @BindView(R.id.spinner) Spinner mSpinner;
     @BindView(R.id.recyclerView_Games) RecyclerView mRecyclerView_Gamelets;
+    @BindView(R.id.searchView_ByName) SearchView mSearchView_ByName;
 
     public ArrayAdapter<String> mSpinnerAdapter;
     public CreateBashActivity parent;
@@ -52,6 +54,7 @@ public class AddGamesFragment extends Fragment implements View.OnClickListener{
     public ArrayList<Gamelet> mGamelets = new ArrayList<>();
     private GameletListAdapter mGameletAdapter;
     private HashMap<String, ArrayList<Gamelet>> mGameletListStorage = new HashMap<>();
+    private ArrayList<Gamelet> mFilteredGamelets = new ArrayList<>();
 
     public AddGamesFragment() {
         // Required empty public constructor
@@ -71,8 +74,33 @@ public class AddGamesFragment extends Fragment implements View.OnClickListener{
         setUpRecyclerView();
         setRecyclerViewItemTouchListener();
 
+        mSearchView_ByName.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                if(s.length() != 0){
+                    filterGamelets(s.toLowerCase());
+                }
+                return false;
+            }
+        });
+
         // Inflate the layout for this fragment
         return view;
+    }
+
+    public void filterGamelets(String query){
+        mFilteredGamelets.clear();
+        for(Gamelet gamelet : mGamelets){
+            if(gamelet.getName().toLowerCase().contains(query)){
+                mFilteredGamelets.add(gamelet);
+            }
+        }
+        mGameletAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -88,15 +116,20 @@ public class AddGamesFragment extends Fragment implements View.OnClickListener{
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String platformId = mPlatformIds.get(i);
 
+                mSearchView_ByName.setQuery("", false);
+                mGamelets.clear();
+                mFilteredGamelets.clear();
+
                 if(mGameletListStorage.get(platformId) == null){
                     Log.d("Fetching", "From GamesDB");
                     findGamesByPlatform(platformId);
                 }else{
                     Log.d("Fetching", "From Local Storage, id " + platformId);
-                    mGamelets.clear();
                     for(Gamelet gamelet : mGameletListStorage.get(platformId)){
                         mGamelets.add(gamelet);
+                        mFilteredGamelets.add(gamelet);
                     }
+
                     mGameletAdapter.notifyDataSetChanged();
                 }
 
@@ -129,7 +162,7 @@ public class AddGamesFragment extends Fragment implements View.OnClickListener{
     }
 
     public void setUpRecyclerView(){
-        mGameletAdapter = new GameletListAdapter(mGamelets, parent);
+        mGameletAdapter = new GameletListAdapter(mFilteredGamelets, parent);
         mRecyclerView_Gamelets.setHasFixedSize(true);
         mRecyclerView_Gamelets.setAdapter(mGameletAdapter);
         mRecyclerView_Gamelets.setLayoutManager(new LinearLayoutManager(this.getContext()));
@@ -175,7 +208,6 @@ public class AddGamesFragment extends Fragment implements View.OnClickListener{
 
     public void findGamesByPlatform(final String platformId){
         final GamesDbService apiService = new GamesDbService();
-        mGamelets.clear();
 
         apiService.findGamesByPlatform(platformId, new Callback() {
             @Override
@@ -195,7 +227,8 @@ public class AddGamesFragment extends Fragment implements View.OnClickListener{
                         String name = data.getString("GameTitle");
                         String id = data.getString("id");
                         if(name != null && id != null){
-                            mGamelets.add(new Gamelet(name, id));
+                            Gamelet gamelet = new Gamelet(name, id);
+                            mGamelets.add(gamelet);
                         }
                     }
                     parent.runOnUiThread(new Runnable() {
@@ -208,7 +241,10 @@ public class AddGamesFragment extends Fragment implements View.OnClickListener{
                                 }
                             });
                             mGameletListStorage.put(platformId, (ArrayList<Gamelet>) mGamelets.clone());
-                            Log.d("Notifying", "Fresh set from GamesDB");
+
+                            for(Gamelet gamelet : mGamelets){
+                                mFilteredGamelets.add(gamelet);
+                            }
                             mGameletAdapter.notifyDataSetChanged();
                         }
                     });

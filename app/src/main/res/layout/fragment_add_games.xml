@@ -14,10 +14,18 @@
         android:id="@+id/spinner"
         android:layout_alignParentLeft="true" />
 
+    <SearchView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:queryHint="narrow by name"
+        android:iconifiedByDefault="false"
+        android:id="@+id/searchView_ByName"
+        android:layout_below="@id/spinner" />
+
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/spinner"
+        android:layout_below="@+id/searchView_ByName"
         android:id="@+id/recyclerView_Games">
 
     </android.support.v7.widget.RecyclerView>
