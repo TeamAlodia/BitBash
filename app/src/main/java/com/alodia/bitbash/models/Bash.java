@@ -12,7 +12,7 @@ public class Bash {
     public String name;
     public String description;
     public String createdBy;
-    public int currentSeason = 0;
+    public int currentSeason = 1;
     public String pushId;
     public HashMap<String, Boolean> players;
     public ArrayList<ArrayList<HighScoreTable>> seasons = new ArrayList<>();

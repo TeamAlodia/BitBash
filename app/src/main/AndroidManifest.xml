@@ -16,7 +16,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activities.MenuActivity" />
-        <activity android:name=".ui.activities.CreateBashActivity"></activity>
+        <activity android:name=".ui.activities.CreateBashActivity" />
+        <activity android:name=".ui.activities.LoadBashActivity"></activity>
     </application>
 
 </manifest>

@@ -116,7 +116,7 @@ public class CreateBashActivity extends AuthListenerActivity {
         String bashPushId = pushRef.getKey();
         bash.setPushId(bashPushId);
         pushRef.setValue(bash);
-        dbRef.child(Constants.DB_PLAYERS).child(currentUserId).child(Constants.DB_BASHES).child(bashPushId).setValue(bash);
+        dbRef.child(Constants.DB_PLAYERS).child(currentUserId).child(Constants.DB_BASHES).child(bashPushId).setValue(true);
 
         //TODO: redirect to bash details page
         Toast.makeText(mContext, "Bash created!", Toast.LENGTH_SHORT).show();

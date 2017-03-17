@@ -34,23 +34,11 @@ public class MenuActivity extends AuthListenerActivity implements View.OnClickLi
         if(view == mButton_Logout){
             logout();
         } else if(view == mTextView_NewBash) {
-            newBash();
+            startActivity(new Intent(MenuActivity.this, CreateBashActivity.class));
         } else if(view == mTextView_LoadBash) {
-            loadBash();
+            startActivity(new Intent(MenuActivity.this, LoadBashActivity.class));
         } else if(view == mTextView_Options) {
-            settings();
         }
-    }
-
-    private void newBash() {
-        startActivity(new Intent(MenuActivity.this, CreateBashActivity.class));
-    }
-
-    private void loadBash() {
-
-    }
-
-    private void settings() {
     }
 
     private void setFonts(){
