@@ -18,7 +18,7 @@ public class Bash {
     public ArrayList<ArrayList<HighScoreTable>> seasons = new ArrayList<>();
 
 
-
+    public Bash() {}
     public Bash(String name, String description, String createdBy, HashMap<String, Boolean> players, ArrayList<ArrayList<HighScoreTable>> seasons) {
         this.name = name;
         this.description = description;
