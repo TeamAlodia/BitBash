@@ -9,10 +9,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alodia.bitbash.AuthListenerActivity;
+import com.alodia.bitbash.Constants;
 import com.alodia.bitbash.R;
+import com.alodia.bitbash.models.Player;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,6 +61,15 @@ public class LoginActivity extends AuthListenerActivity implements View.OnClickL
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }else{
+                            String name = mAuth.getCurrentUser().getEmail();
+                            name = name.substring(0, name.indexOf("@"));
+
+                            Player player = new Player();
+                            player.setName(name);
+                            player.setPushId(mAuth.getCurrentUser().getUid());
+
+                            FirebaseDatabase.getInstance().getReference().child(Constants.DB_PLAYERS).setValue(player);
+
                             Toast.makeText(mContext, "Welcome to BitBash!", Toast.LENGTH_SHORT).show();
                         }
 

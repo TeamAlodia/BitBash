@@ -7,8 +7,8 @@ import java.util.HashMap;
  */
 
 public class Player {
-    public String name;
-    public String initials;
+    public String name = "???";
+    public String initials = "???";
     public String height = "???";
     public String weight = "???";
     public String dateOfBirth = "???";
@@ -19,6 +19,8 @@ public class Player {
     public HashMap<String, Boolean> records = new HashMap<>();
     public HashMap<String, Boolean> friends = new HashMap<>();
     public HashMap<String, Boolean> bashes = new HashMap<>();
+
+    public Player(){};
 
     public Player(String name, String initials) {
         this.name = name;

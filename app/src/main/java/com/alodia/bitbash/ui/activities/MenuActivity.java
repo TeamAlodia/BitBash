@@ -3,6 +3,7 @@ package com.alodia.bitbash.ui.activities;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -38,6 +39,7 @@ public class MenuActivity extends AuthListenerActivity implements View.OnClickLi
         } else if(view == mTextView_LoadBash) {
             startActivity(new Intent(MenuActivity.this, LoadBashActivity.class));
         } else if(view == mTextView_Options) {
+            startActivity(new Intent(MenuActivity.this, ProfileActivity.class));
         }
     }
 
