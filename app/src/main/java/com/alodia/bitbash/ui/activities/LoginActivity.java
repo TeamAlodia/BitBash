@@ -63,12 +63,13 @@ public class LoginActivity extends AuthListenerActivity implements View.OnClickL
                         }else{
                             String name = mAuth.getCurrentUser().getEmail();
                             name = name.substring(0, name.indexOf("@"));
+                            String currentUserId = mAuth.getCurrentUser().getUid();
 
                             Player player = new Player();
                             player.setName(name);
-                            player.setPushId(mAuth.getCurrentUser().getUid());
+                            player.setPushId(currentUserId);
 
-                            FirebaseDatabase.getInstance().getReference().child(Constants.DB_PLAYERS).setValue(player);
+                            FirebaseDatabase.getInstance().getReference().child(Constants.DB_PLAYERS).child(currentUserId).setValue(player);
 
                             Toast.makeText(mContext, "Welcome to BitBash!", Toast.LENGTH_SHORT).show();
                         }
