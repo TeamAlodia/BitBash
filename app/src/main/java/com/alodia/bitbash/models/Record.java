@@ -11,6 +11,7 @@ public class Record {
     public String gameName;
     public String gameId;
     public String pushId;
+    public String type;
 
     public Record(String playerName, String playerId, String gameName, String gameId) {
         this.playerName = playerName;

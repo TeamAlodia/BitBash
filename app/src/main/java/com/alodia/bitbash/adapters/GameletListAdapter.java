@@ -44,6 +44,7 @@ import okhttp3.Response;
 public class GameletListAdapter extends RecyclerView.Adapter<GameletListAdapter.GameletViewHolder> {
     List<Gamelet> mGamelets = new ArrayList<>();
     CreateBashActivity mParent;
+    Typeface PressStart;
 
     public GameletListAdapter(List<Gamelet> gamelets, CreateBashActivity parent){
         mGamelets = gamelets;
@@ -77,6 +78,7 @@ public class GameletListAdapter extends RecyclerView.Adapter<GameletListAdapter.
             super(itemView);
             ButterKnife.bind(this, itemView);
             mItemView = itemView;
+            PressStart = Typeface.createFromAsset(mParent.getAssets(), "fonts/PressStart2P-Regular.ttf");
 
             itemView.setOnClickListener(this);
             mImageView_AddGame.setOnClickListener(this);
@@ -84,8 +86,7 @@ public class GameletListAdapter extends RecyclerView.Adapter<GameletListAdapter.
         }
 
         public void bindGamelet(Gamelet gamelet){
-            Typeface tf = Typeface.createFromAsset(mParent.getAssets(), "fonts/PressStart2P-Regular.ttf");
-            mTextView_Name.setTypeface(tf);
+            mTextView_Name.setTypeface(PressStart);
             mTextView_Name.setText(gamelet.getName());
         }
 

@@ -17,7 +17,7 @@ public class Player {
     public String bio = "A mysterious challenger.";
     public String pushId;
     public HashMap<String, Boolean> records = new HashMap<>();
-    public HashMap<String, Boolean> friends = new HashMap<>();
+    public HashMap<String, Boolean> rivals = new HashMap<>();
     public HashMap<String, Boolean> bashes = new HashMap<>();
 
     public Player(){};
@@ -99,12 +99,12 @@ public class Player {
         this.records = records;
     }
 
-    public HashMap<String, Boolean> getFriends() {
-        return friends;
+    public HashMap<String, Boolean> getRivals() {
+        return rivals;
     }
 
-    public void setFriends(HashMap<String, Boolean> friends) {
-        this.friends = friends;
+    public void setRivals(HashMap<String, Boolean> rivals) {
+        this.rivals = rivals;
     }
 
     public HashMap<String, Boolean> getBashes() {

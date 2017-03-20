@@ -3,9 +3,7 @@ package com.alodia.bitbash.ui.activities;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.alodia.bitbash.AuthListenerActivity;
@@ -15,10 +13,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MenuActivity extends AuthListenerActivity implements View.OnClickListener{
-    @BindView(R.id.button__Logout) Button mButton_Logout;
     @BindView(R.id.textView_NewBash) TextView mTextView_NewBash;
     @BindView(R.id.textView_LoadBash) TextView mTextView_LoadBash;
-    @BindView(R.id.textView_Options) TextView mTextView_Options;
+    @BindView(R.id.textView_CustomizeFighter) TextView mTextView_CustomizeFighter;
+    @BindView(R.id.textView_LoadProfile) TextView mTextView_LoadProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,13 +30,13 @@ public class MenuActivity extends AuthListenerActivity implements View.OnClickLi
 
     @Override
     public void onClick(View view) {
-        if(view == mButton_Logout){
+        if(view == mTextView_LoadProfile){
             logout();
         } else if(view == mTextView_NewBash) {
             startActivity(new Intent(MenuActivity.this, CreateBashActivity.class));
         } else if(view == mTextView_LoadBash) {
             startActivity(new Intent(MenuActivity.this, LoadBashActivity.class));
-        } else if(view == mTextView_Options) {
+        } else if(view == mTextView_CustomizeFighter) {
             startActivity(new Intent(MenuActivity.this, ProfileActivity.class));
         }
     }
@@ -48,13 +46,14 @@ public class MenuActivity extends AuthListenerActivity implements View.OnClickLi
 
         mTextView_NewBash.setTypeface(tf);
         mTextView_LoadBash.setTypeface(tf);
-        mTextView_Options.setTypeface(tf);
+        mTextView_CustomizeFighter.setTypeface(tf);
+        mTextView_LoadProfile.setTypeface(tf);
     }
 
     private void setClickListeners(){
-        mButton_Logout.setOnClickListener(this);
+        mTextView_LoadProfile.setOnClickListener(this);
         mTextView_NewBash.setOnClickListener(this);
         mTextView_LoadBash.setOnClickListener(this);
-        mTextView_Options.setOnClickListener(this);
+        mTextView_CustomizeFighter.setOnClickListener(this);
     }
 }

@@ -41,7 +41,6 @@ public class LoadBashActivity extends AuthListenerActivity {
     }
 
     public void setUpFirebaseIndexAdapter(){
-        Log.d("!!!!!", "In setup");
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
         String currentUserId = mAuth.getCurrentUser().getUid();
 

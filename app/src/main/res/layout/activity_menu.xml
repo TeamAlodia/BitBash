@@ -6,15 +6,6 @@
     android:layout_height="match_parent"
     tools:context="com.alodia.bitbash.ui.activities.MenuActivity">
 
-    <Button
-        android:text="Logout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/button__Logout" />
-
     <TextView
         android:text="BIT BASH"
         android:layout_width="wrap_content"
@@ -45,12 +36,23 @@
         android:id="@+id/textView_LoadBash" />
 
     <TextView
-        android:text="Options"
+        android:text="Customize Fighter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_below="@+id/textView_LoadBash"
         android:layout_centerHorizontal="true"
         android:textSize="24dp"
-        android:id="@+id/textView_Options" />
+        android:id="@+id/textView_CustomizeFighter" />
+
+    <TextView
+        android:text="Load Profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/textView_CustomizeFighter"
+        android:layout_centerHorizontal="true"
+        android:textSize="24dp"
+        android:id="@+id/textView_LoadProfile" />
+
 </RelativeLayout>

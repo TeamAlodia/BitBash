@@ -1,16 +1,21 @@
 package com.alodia.bitbash.ui.activities;
 
 import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import com.alodia.bitbash.AuthListenerActivity;
 import com.alodia.bitbash.Constants;
 import com.alodia.bitbash.R;
+import com.alodia.bitbash.adapters.PlayerletViewHolder;
 import com.alodia.bitbash.models.Player;
+import com.alodia.bitbash.models.Playerlet;
+import com.firebase.ui.database.FirebaseIndexRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -34,8 +39,14 @@ public class ProfileActivity extends AuthListenerActivity {
     @BindView(R.id.textView_WeightDetail) TextView mTextView_WeightDetail;
     @BindView(R.id.textView_Bio) TextView mTextView_Bio;
     @BindView(R.id.textView_BioDetail) TextView mTextView_BioDetail;
+    @BindView(R.id.textView_Rivals) TextView mTextView_Rivals;
+    @BindView(R.id.textView_Records) TextView mTextView_Records;
+    @BindView(R.id.recyclerView_Rivals) RecyclerView mRecyclerView_Rivals;
+    @BindView(R.id.recyclerView_Records) RecyclerView mRecyclerView_Records;
 
-    Player mPlayer;
+    private Player mPlayer;
+
+    private FirebaseIndexRecyclerAdapter mRivalsFirebaseAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +56,32 @@ public class ProfileActivity extends AuthListenerActivity {
 
         setTypefaces();
         getPlayer();
+        setUpRivalsRecycler();
     }
+
+    public void setUpRivalsRecycler(){
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+        String currentUserId = mAuth.getCurrentUser().getUid();
+        final Typeface Play = Typeface.createFromAsset( getAssets(), "fonts/Play-Regular.ttf");
+
+        DatabaseReference keyRef = dbRef.child(Constants.DB_PLAYERS).child(currentUserId).child(Constants.DB_RIVALS);
+        final DatabaseReference dataRef = dbRef.child(Constants.DB_PLAYERS);
+
+
+        mRecyclerView_Rivals.setHasFixedSize(false);
+        mRecyclerView_Rivals.setLayoutManager(new LinearLayoutManager(this));
+
+        mRivalsFirebaseAdapter = new FirebaseIndexRecyclerAdapter<Playerlet, PlayerletViewHolder>(Playerlet.class, R.layout.list_item_playerlet, PlayerletViewHolder.class,
+                keyRef, dataRef) {
+            @Override
+            protected void populateViewHolder(PlayerletViewHolder viewHolder, Playerlet model, int position) {
+                viewHolder.bindPlayerlet(model, Play);
+            }
+        };
+
+        mRecyclerView_Rivals.setAdapter(mRivalsFirebaseAdapter);
+    }
+
 
     public void setTypefaces(){
         Typeface PressStart = Typeface.createFromAsset(getAssets(), "fonts/PressStart2P-Regular.ttf");
@@ -59,6 +95,8 @@ public class ProfileActivity extends AuthListenerActivity {
         mTextView_DateOfBirth.setTypeface(PressStart);
         mTextView_Weight.setTypeface(PressStart);
         mTextView_Bio.setTypeface(PressStart);
+        mTextView_Rivals.setTypeface(PressStart);
+        mTextView_Records.setTypeface(PressStart);
 
         mTextView_NameDetail.setTypeface(PlayReg);
         mTextView_OriginDetail.setTypeface(PlayReg);
