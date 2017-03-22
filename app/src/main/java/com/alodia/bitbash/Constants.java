@@ -15,4 +15,6 @@ public class Constants {
     public static final String DB_BASHES = "bashes";
     public static final String DB_PLAYERS = "players";
     public static final String DB_RIVALS = "rivals";
+
+    public static final String DB_SUBNODE_SEASONS = "seasons";
 }
