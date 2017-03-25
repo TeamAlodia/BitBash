@@ -32,4 +32,22 @@
         android:layout_below="@+id/editText_Name"
         android:id="@+id/editText_Description"
         android:hint="description" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:text="Choose your rivals!"
+        android:layout_below="@+id/editText_Description"
+        android:id="@+id/textView_ChooseYourRivals"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/textView_ChooseYourRivals"
+        android:id="@+id/recyclerView_AddRivals">
+    </android.support.v7.widget.RecyclerView>
+
 </RelativeLayout>

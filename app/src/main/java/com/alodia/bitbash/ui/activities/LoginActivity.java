@@ -61,15 +61,17 @@ public class LoginActivity extends AuthListenerActivity implements View.OnClickL
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }else{
-                            String name = mAuth.getCurrentUser().getEmail();
-                            name = name.substring(0, name.indexOf("@"));
+                            String email = mAuth.getCurrentUser().getEmail();
+                            email = email.substring(0, email.indexOf("@"));
                             String currentUserId = mAuth.getCurrentUser().getUid();
 
                             Player player = new Player();
-                            player.setName(name);
+                            player.setName(email);
                             player.setPushId(currentUserId);
 
-                            FirebaseDatabase.getInstance().getReference().child(Constants.DB_PLAYERS).child(currentUserId).setValue(player);
+                            DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+                            dbRef.child(Constants.DB_PLAYERS).child(currentUserId).setValue(player);
+                            dbRef.child(Constants.DB_SEARCH).child(currentUserId).setValue(email);
 
                             Toast.makeText(mContext, "Welcome to BitBash!", Toast.LENGTH_SHORT).show();
                         }

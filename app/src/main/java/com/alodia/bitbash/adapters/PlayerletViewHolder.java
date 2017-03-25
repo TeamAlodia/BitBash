@@ -28,7 +28,7 @@ public class PlayerletViewHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this,itemView);
     }
 
-    public void bindPlayerlet(Playerlet playerlet, Typeface Play){
+    public void bindPlayerlet(Playerlet playerlet, Typeface Play, boolean displayAddButton){
         mTextView_PlayerName.setText(playerlet.getName());
         mTextView_PlayerName.setTypeface(Play);
     }

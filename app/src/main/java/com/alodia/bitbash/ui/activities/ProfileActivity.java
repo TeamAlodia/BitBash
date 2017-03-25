@@ -75,7 +75,7 @@ public class ProfileActivity extends AuthListenerActivity {
                 keyRef, dataRef) {
             @Override
             protected void populateViewHolder(PlayerletViewHolder viewHolder, Playerlet model, int position) {
-                viewHolder.bindPlayerlet(model, Play);
+                viewHolder.bindPlayerlet(model, Play, false);
             }
         };
 
