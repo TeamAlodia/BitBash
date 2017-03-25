@@ -19,7 +19,8 @@
         <activity android:name=".ui.activities.CreateBashActivity" />
         <activity android:name=".ui.activities.LoadBashActivity" />
         <activity android:name=".ui.activities.ProfileActivity" />
-        <activity android:name=".ui.activities.BashDetailActivity"></activity>
+        <activity android:name=".ui.activities.BashDetailActivity" />
+        <activity android:name=".ui.activities.RivalsActivity"></activity>
     </application>
 
 </manifest>

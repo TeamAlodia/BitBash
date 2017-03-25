@@ -36,11 +36,21 @@
         android:id="@+id/textView_LoadBash" />
 
     <TextView
+        android:text="Rivals"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView_LoadBash"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:textSize="24dp"
+        android:id="@+id/textView_Rivals" />
+
+    <TextView
         android:text="Customize Fighter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_below="@+id/textView_LoadBash"
+        android:layout_below="@+id/textView_Rivals"
         android:layout_centerHorizontal="true"
         android:textSize="24dp"
         android:id="@+id/textView_CustomizeFighter" />

@@ -17,6 +17,7 @@ public class MenuActivity extends AuthListenerActivity implements View.OnClickLi
     @BindView(R.id.textView_LoadBash) TextView mTextView_LoadBash;
     @BindView(R.id.textView_CustomizeFighter) TextView mTextView_CustomizeFighter;
     @BindView(R.id.textView_LoadProfile) TextView mTextView_LoadProfile;
+    @BindView(R.id.textView_Rivals) TextView mTextView_Rivals;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,16 +39,19 @@ public class MenuActivity extends AuthListenerActivity implements View.OnClickLi
             startActivity(new Intent(MenuActivity.this, LoadBashActivity.class));
         } else if(view == mTextView_CustomizeFighter) {
             startActivity(new Intent(MenuActivity.this, ProfileActivity.class));
+        }else if(view == mTextView_Rivals){
+            startActivity(new Intent(MenuActivity.this, RivalsActivity.class));
         }
     }
 
     private void setFonts(){
-        Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/PressStart2P-Regular.ttf");
+        Typeface PressStart = Typeface.createFromAsset(getAssets(), "fonts/PressStart2P-Regular.ttf");
 
-        mTextView_NewBash.setTypeface(tf);
-        mTextView_LoadBash.setTypeface(tf);
-        mTextView_CustomizeFighter.setTypeface(tf);
-        mTextView_LoadProfile.setTypeface(tf);
+        mTextView_NewBash.setTypeface(PressStart);
+        mTextView_LoadBash.setTypeface(PressStart);
+        mTextView_CustomizeFighter.setTypeface(PressStart);
+        mTextView_LoadProfile.setTypeface(PressStart);
+        mTextView_Rivals.setTypeface(PressStart);
     }
 
     private void setClickListeners(){
@@ -55,5 +59,6 @@ public class MenuActivity extends AuthListenerActivity implements View.OnClickLi
         mTextView_NewBash.setOnClickListener(this);
         mTextView_LoadBash.setOnClickListener(this);
         mTextView_CustomizeFighter.setOnClickListener(this);
+        mTextView_Rivals.setOnClickListener(this);
     }
 }

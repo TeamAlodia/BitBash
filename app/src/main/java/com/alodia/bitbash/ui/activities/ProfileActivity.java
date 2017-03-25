@@ -110,11 +110,14 @@ public class ProfileActivity extends AuthListenerActivity {
     }
 
     public void getPlayer(){
-        String currentUserId = mAuth.getCurrentUser().getUid();
+        String playerId = getIntent().getStringExtra("player");
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
 
-        //TODO: Check for intent, otherwise display via currentUserId
+        if(playerId == null){
+            playerId = mAuth.getCurrentUser().getUid();
+        }
 
-        FirebaseDatabase.getInstance().getReference().child(Constants.DB_PLAYERS).child(currentUserId).addListenerForSingleValueEvent(new ValueEventListener() {
+        dbRef.child(Constants.DB_PLAYERS).child(playerId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 mPlayer = dataSnapshot.getValue(Player.class);

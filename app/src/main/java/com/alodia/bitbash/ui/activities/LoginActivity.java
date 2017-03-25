@@ -71,7 +71,7 @@ public class LoginActivity extends AuthListenerActivity implements View.OnClickL
 
                             DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
                             dbRef.child(Constants.DB_PLAYERS).child(currentUserId).setValue(player);
-                            dbRef.child(Constants.DB_SEARCH).child(currentUserId).setValue(email);
+                            dbRef.child(Constants.DB_SEARCH).child(Constants.DB_PLAYERS).child(currentUserId).setValue(email.toLowerCase());
 
                             Toast.makeText(mContext, "Welcome to BitBash!", Toast.LENGTH_SHORT).show();
                         }
