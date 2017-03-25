@@ -62,11 +62,11 @@ public class LoginActivity extends AuthListenerActivity implements View.OnClickL
                                     Toast.LENGTH_SHORT).show();
                         }else{
                             String email = mAuth.getCurrentUser().getEmail();
-                            email = email.substring(0, email.indexOf("@"));
+                            String name = email.substring(0, email.indexOf("@"));
                             String currentUserId = mAuth.getCurrentUser().getUid();
 
                             Player player = new Player();
-                            player.setName(email);
+                            player.setName(name);
                             player.setPushId(currentUserId);
 
                             DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();

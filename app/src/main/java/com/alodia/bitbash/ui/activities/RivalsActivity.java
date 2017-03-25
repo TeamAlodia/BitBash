@@ -32,15 +32,54 @@ public class RivalsActivity extends AuthListenerActivity {
     }
 
     public void searchForRival(String rivalEmail){
-        Log.d("Searching for", rivalEmail);
-        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
-        Query dbQuery = dbRef.child(Constants.DB_SEARCH).orderByValue().equalTo(rivalEmail);
+        final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+        Query currentPlayerQuery = dbRef.child(Constants.DB_SEARCH).child(Constants.DB_PLAYERS).orderByValue().equalTo(rivalEmail);
+        final String currentUserId = mAuth.getCurrentUser().getUid();
 
-        dbQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+        currentPlayerQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.hasChildren()){
-                    Toast.makeText(mContext, "Rival found", Toast.LENGTH_SHORT).show();
+                    //Rival is found in search
+                    for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                        final String rivalId = snapshot.getKey();
+
+                        //Check if already a rival
+                        dbRef.child(Constants.DB_PLAYERS).child(currentUserId).child(Constants.DB_RIVALS).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.hasChild(rivalId)){
+                                    Toast.makeText(RivalsActivity.this, "Already a rival!", Toast.LENGTH_SHORT).show();
+                                }else{
+                                    dbRef.child(Constants.DB_PLAYERS).child(rivalId).child(Constants.DB_RIVALS).addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            //If rival has already added current player, then set both rival values to true to indicate, else set rival to false for current user. True value indicates mutual rivalry, allows interactions.
+                                            if(dataSnapshot.hasChild(currentUserId)){
+                                                dbRef.child(Constants.DB_PLAYERS).child(rivalId).child(Constants.DB_RIVALS).child(currentUserId).setValue(true);
+                                                dbRef.child(Constants.DB_PLAYERS).child(currentUserId).child(Constants.DB_RIVALS).child(rivalId).setValue(true);
+                                            }else{
+                                                dbRef.child(Constants.DB_PLAYERS).child(currentUserId).child(Constants.DB_RIVALS).child(rivalId).setValue(false);
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
+
+                                    Toast.makeText(mContext, "Rival found", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+
                 }else{
                     Toast.makeText(mContext, "Rival not found", Toast.LENGTH_SHORT).show();
                 }
@@ -57,7 +96,13 @@ public class RivalsActivity extends AuthListenerActivity {
         mSearchView_FindRival.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                searchForRival(s.toLowerCase());
+                String currentUserEmail = mAuth.getCurrentUser().getEmail().toLowerCase();
+
+                if(currentUserEmail.equals(s.toLowerCase())){
+                    Toast.makeText(mContext, "No shadowboxing allowed", Toast.LENGTH_SHORT).show();
+                }else{
+                    searchForRival(s.toLowerCase());   
+                }
                 return false;
             }
 
