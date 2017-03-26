@@ -1,6 +1,8 @@
 package com.alodia.bitbash.ui.fragments;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -34,7 +36,7 @@ public class AddDetailsAndInviteFragment extends Fragment {
     @BindView(R.id.textView_ChooseYourRivals) TextView mEditText_ChooseYourRivals;
     @BindView(R.id.recyclerView_AddRivals) RecyclerView mRecyclerView_AddRivals;
 
-    public CreateBashActivity parent;
+    public CreateBashActivity mParent;
     private Typeface PressStart;
     private FirebaseIndexRecyclerAdapter mAddRivalsFirebaseIndexAdapter;
 
@@ -49,10 +51,10 @@ public class AddDetailsAndInviteFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_add_details_and_invite, container, false);
         ButterKnife.bind(this, view);
 
-        parent = (CreateBashActivity) getActivity();
+        mParent = (CreateBashActivity) getActivity();
 
         //TODO: May need to use a text watcher for constant updates if other phones do not play nice with fragments.
-        PressStart = Typeface.DEFAULT.createFromAsset(parent.getAssets(), "fonts/PressStart2P-Regular.ttf");
+        PressStart = Typeface.DEFAULT.createFromAsset(mParent.getAssets(), "fonts/PressStart2P-Regular.ttf");
         mEditText_ChooseYourRivals.setTypeface(PressStart);
 
         setUpRivalsRecycler();
@@ -73,20 +75,20 @@ public class AddDetailsAndInviteFragment extends Fragment {
 
     public void setUpRivalsRecycler(){
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
-        String currentUserId = parent.mAuth.getCurrentUser().getUid();
+        String currentUserId = mParent.mAuth.getCurrentUser().getUid();
 
         DatabaseReference keyRef = dbRef.child(Constants.DB_PLAYERS).child(currentUserId).child(Constants.DB_RIVALS);
         final DatabaseReference dataRef = dbRef.child(Constants.DB_PLAYERS);
 
 
         mRecyclerView_AddRivals.setHasFixedSize(false);
-        mRecyclerView_AddRivals.setLayoutManager(new LinearLayoutManager(parent));
+        mRecyclerView_AddRivals.setLayoutManager(new LinearLayoutManager(mParent));
 
         mAddRivalsFirebaseIndexAdapter = new FirebaseIndexRecyclerAdapter<Playerlet, PlayerletViewHolder>(Playerlet.class, R.layout.list_item_playerlet, PlayerletViewHolder.class,
                 keyRef, dataRef) {
             @Override
             protected void populateViewHolder(PlayerletViewHolder viewHolder, Playerlet model, int position) {
-                viewHolder.bindPlayerlet(model, PressStart, true);
+                viewHolder.bindPlayerlet(model, PressStart, true, mParent);
             }
         };
 

@@ -9,6 +9,7 @@
         android:layout_margin="4dp"
         android:adjustViewBounds="true"
         android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
         android:layout_alignParentStart="true"
         android:src="@drawable/question_mark_block"
         android:scaleType="fitStart"
@@ -19,11 +20,23 @@
         android:layout_height="wrap_content"
         android:text="Name"
         android:textSize="20dp"
-        android:layout_marginLeft="4dp"
+        android:layout_margin="4dp"
         android:maxLines="1"
         android:ellipsize="end"
         android:layout_toRightOf="@+id/imageView_PlayerIcon"
         android:layout_centerVertical="true"
         android:id="@+id/textView_PlayerName"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_add_circle_white_24dp"
+        android:layout_margin="4dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:visibility="visible"
+        android:background="@null"
+        android:id="@+id/imageButton_AddRival"/>
 
 </RelativeLayout>

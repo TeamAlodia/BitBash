@@ -47,6 +47,7 @@ public class CreateBashActivity extends AuthListenerActivity {
     private String mDescription;
     private AddDetailsAndInviteFragment mAddDetailsAndInviteFragment = new AddDetailsAndInviteFragment();
     private AddCriteriaFragment mAddCriteriaFragment = new AddCriteriaFragment();
+    private HashMap<String, Boolean> mPlayers = new HashMap<String, Boolean>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,11 +107,9 @@ public class CreateBashActivity extends AuthListenerActivity {
         seasons.add(mHighScoreTables);
 
         //Set up players
-        //TODO: Harvest additional players
-        HashMap<String, Boolean> players = new HashMap<>();
-        players.put(currentUserId, true);
+//        mPlayers.put(currentUserId, true);
 
-        Bash bash = new Bash(mName, mDescription, currentUserId, players, seasons);
+        Bash bash = new Bash(mName, mDescription, currentUserId, mPlayers, seasons);
 
         DatabaseReference pushRef = dbRef.child(Constants.DB_BASHES).push();
         String bashPushId = pushRef.getKey();
@@ -118,7 +117,25 @@ public class CreateBashActivity extends AuthListenerActivity {
         pushRef.setValue(bash);
         dbRef.child(Constants.DB_PLAYERS).child(currentUserId).child(Constants.DB_BASHES).child(bashPushId).setValue(true);
 
+        sendInvites(bashPushId);
+
         //TODO: redirect to bash details page
         Toast.makeText(mContext, "Bash created!", Toast.LENGTH_SHORT).show();
+    }
+
+    public void addRival(String rivalId){
+        mPlayers.put(rivalId, false);
+        Log.d("Added Rival", rivalId);
+        Toast.makeText(mContext, "Rival added", Toast.LENGTH_SHORT).show();
+    }
+    public void sendInvites(String bashId){
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+        String currentUserId = mAuth.getCurrentUser().getUid();
+
+        for(String rivalId : mPlayers.keySet()){
+            if(!rivalId.equals(currentUserId)){
+                dbRef.child(Constants.Db_INVITES).child(currentUserId).child(bashId).setValue(false);
+            }
+        }
     }
 }

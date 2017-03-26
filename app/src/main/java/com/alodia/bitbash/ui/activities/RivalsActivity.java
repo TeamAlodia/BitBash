@@ -31,6 +31,8 @@ public class RivalsActivity extends AuthListenerActivity {
         setQueryListener();
     }
 
+
+    //TODO: Make modular
     public void searchForRival(String rivalEmail){
         final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
         Query currentPlayerQuery = dbRef.child(Constants.DB_SEARCH).child(Constants.DB_PLAYERS).orderByValue().equalTo(rivalEmail);

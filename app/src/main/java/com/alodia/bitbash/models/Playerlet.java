@@ -6,7 +6,7 @@ package com.alodia.bitbash.models;
 
 public class Playerlet {
     public String name;
-    public String playerId;
+    public String pushId;
     public String icon;
 
     public Playerlet() {
@@ -20,12 +20,12 @@ public class Playerlet {
         this.name = name;
     }
 
-    public String getPlayerId() {
-        return playerId;
+    public String getPushId() {
+        return pushId;
     }
 
-    public void setPlayerId(String playerId) {
-        this.playerId = playerId;
+    public void setPushId(String pushId) {
+        this.pushId = pushId;
     }
 
     public String getIcon() {
