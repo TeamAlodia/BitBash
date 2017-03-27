@@ -134,7 +134,7 @@ public class CreateBashActivity extends AuthListenerActivity {
 
         for(String rivalId : mPlayers.keySet()){
             if(!rivalId.equals(currentUserId)){
-                dbRef.child(Constants.Db_INVITES).child(currentUserId).child(bashId).setValue(false);
+                dbRef.child(Constants.Db_INVITES).child(rivalId).child(bashId).setValue(false);
             }
         }
     }

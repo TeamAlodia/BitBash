@@ -21,8 +21,8 @@ public class PlayerletViewHolder extends RecyclerView.ViewHolder implements View
     @BindView(R.id.textView_PlayerName) TextView mTextView_PlayerName;
     @BindView(R.id.imageButton_AddRival) ImageButton mImageButton_AddRival;
 
-    CreateBashActivity mParent;
-    Playerlet mPlayerlet;
+    private CreateBashActivity mParent;
+    private Playerlet mPlayerlet;
 
     public PlayerletViewHolder(View itemView) {
         super(itemView);
